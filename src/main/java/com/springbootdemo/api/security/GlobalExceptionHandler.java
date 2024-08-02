@@ -26,12 +26,19 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(getErrorsMap(errors), new HttpHeaders(), HttpStatus.BAD_REQUEST);
     }
 	
+	
 	@ExceptionHandler(UsernameNotFoundException.class)
 	public ResponseEntity<Map<String, List<String>>> handleNotFoundException(UsernameNotFoundException ex) {
 	    List<String> errors = Collections.singletonList(ex.getMessage());
 	    return new ResponseEntity<>(getErrorsMap(errors), new HttpHeaders(), HttpStatus.NOT_FOUND);
 	}
 
+	@ExceptionHandler(IllegalArgumentException.class)
+    public ResponseEntity<Map<String, List<String>>> handleIllegalArgumentException(IllegalArgumentException ex) {
+        List<String> errors = Collections.singletonList(ex.getMessage());
+        return new ResponseEntity<>(getErrorsMap(errors), new HttpHeaders(), HttpStatus.CONFLICT);
+    }
+	
 	@ExceptionHandler(RuntimeException.class)
 	public final ResponseEntity<Map<String, List<String>>> handleRuntimeExceptions(RuntimeException ex) {
 	    List<String> errors = Collections.singletonList(ex.getMessage());

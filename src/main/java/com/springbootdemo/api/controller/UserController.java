@@ -2,6 +2,7 @@ package com.springbootdemo.api.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import com.springbootdemo.api.dto.LoginDTO;
 import com.springbootdemo.api.dto.UserDTO;
 import com.springbootdemo.api.entity.User;
 import com.springbootdemo.api.service.UserService;
@@ -17,9 +18,14 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @PostMapping
+    @PostMapping("/register")
     public User createUser(@Valid @RequestBody UserDTO user) {
         return userService.createUser(user);
+    }
+    
+    @PostMapping("/login")
+    public User loginUser(@Valid @RequestBody LoginDTO data) {
+    	return userService.loginUser(data);
     }
 
     @GetMapping

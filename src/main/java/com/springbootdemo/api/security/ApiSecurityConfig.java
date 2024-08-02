@@ -21,7 +21,7 @@ public class ApiSecurityConfig  {
 	@Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-            .csrf(csrf -> csrf.disable()) // Tùy chọn, tùy thuộc vào yêu cầu của bạn
+            .csrf(csrf -> csrf.disable())
             .authorizeRequests(authorizeRequests ->
                 authorizeRequests
                     .requestMatchers("/api/**").permitAll() // Các endpoint công khai
