@@ -5,12 +5,9 @@ import java.util.List;
 import javax.security.auth.login.AccountNotFoundException;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.springbootdemo.api.dto.LoginDTO;
-import com.springbootdemo.api.dto.UserDTO;
 import com.springbootdemo.api.entity.User;
 import com.springbootdemo.api.repository.UserRepository;
 
@@ -23,21 +20,8 @@ public class UserService {
 	@Autowired
 	PasswordEncoder passwordEncoder;
 
-	public User createUser(UserDTO user) {
-		if (userRepository.findByEmail(user.getEmail()) != null) {
-			throw new IllegalArgumentException("Email exist!");
-		}
-		String hashPassword = passwordEncoder.encode(user.getPassword());
-		User data = new User(user.getName(), user.getEmail(), hashPassword);
-		return userRepository.save(data);
-	}
-
-	public User loginUser(LoginDTO data) {
-		 User user = userRepository.findByEmail(data.getEmail());
-	        if (user == null || !passwordEncoder.matches(data.getPassword(), user.getPassword())) {
-	            throw new UsernameNotFoundException("Invalid email or password");
-	        }
-	        return user;
+	public User createUser(User user) {
+		return userRepository.save(user);
 	}
 
 	public List<User> getAllUsers() {
